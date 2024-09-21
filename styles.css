@@ -1,0 +1,151 @@
+*,
+::before,
+::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 3em;
+	width: 100vw;
+	height: 100dvh;
+	font-family: sans-serif;
+
+	&.cross {
+		--player-color: #f00;
+		--bg-color: #612a2a;
+		--dialog-border: #1d0d0d;
+		--panel-border: #a52a2a;
+	}
+
+	&.circle {
+		--player-color: #00f;
+		--bg-color: #2a2a61;
+		--panel-border: #2a2aa5;
+		--dialog-border: #0d0d1d;
+	}
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.current-player {
+	color: var(--player-color);
+}
+
+main {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2px;
+	aspect-ratio: 1;
+	width: 100%;
+	max-width: 330px;
+}
+
+dialog {
+	margin: auto;
+	border: 3px solid var(--dialog-border);
+	border-radius: 10px;
+	background-color: var(--bg-color);
+
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1em;
+		padding: 1em;
+	}
+
+	p {
+		font-size: 1.5em;
+	}
+
+	&::backdrop {
+		background-color: #00000060;
+	}
+}
+
+button {
+	cursor: pointer;
+	border: 2px solid var(--dialog-border);
+	border-radius: 5px;
+	background-color: var(--panel-border);
+	padding: 0.5em 1em;
+	font-size: 0.9em;
+
+	&:hover {
+		filter: brightness(140%);
+	}
+
+	&:focus {
+		outline: none;
+		border-color: white;
+	}
+}
+
+.box {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid var(--panel-border);
+	background-color: var(--bg-color);
+
+	&:focus {
+		outline: 2px solid var(--player-color);
+	}
+}
+
+.box.cross {
+	&::before,
+	&::after {
+		position: absolute;
+		transform: rotate(45deg);
+		border: 2px solid red;
+		background-color: #910000;
+		content: "";
+	}
+
+	&::before {
+		width: 90%;
+		height: 20%;
+	}
+
+	&::after {
+		z-index: 1;
+		width: 20%;
+		height: 90%;
+	}
+}
+
+.box.circle {
+	&::before,
+	&::after {
+		position: absolute;
+		border: 2px solid blue;
+		border-radius: 50%;
+		content: "";
+	}
+
+	&::before {
+		background-color: #000091;
+		width: 90%;
+		height: 90%;
+	}
+
+	&::after {
+		z-index: 1;
+		background-color: var(--bg-color);
+		width: 65%;
+		height: 65%;
+	}
+}
